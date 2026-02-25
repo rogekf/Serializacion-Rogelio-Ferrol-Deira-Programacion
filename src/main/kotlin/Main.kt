@@ -37,7 +37,7 @@ fun main() {
     val urlLista = "https://pokeapi.co/api/v2/pokemon?limit=1025"
     val peticionLista = HttpRequest.newBuilder().uri(URI.create(urlLista)).GET().build()
 
-    println("🚀 Cargando datos de 1025 Pokémon... (Ten paciencia, esto tarda unos 30s)")
+    println("Cargando datos de 1025 Pokémon... (Ten paciencia, esto tarda unos 30s)")
 
     val respuestaLista = cliente.send(peticionLista, HttpResponse.BodyHandlers.ofString())
 
@@ -52,7 +52,7 @@ fun main() {
             jsonConfig.decodeFromString<PokemonDetail>(res.body())
         }
 
-        println("✅ ¡Pokédex Lista! Todos los datos descargados.")
+        println("¡Pokédex Lista! Todos los datos descargados.")
 
         println("\n--- MENU DE CONSULTAS ---")
         println("1. Filtrar por PESO")
@@ -62,17 +62,17 @@ fun main() {
 
         when (readln()) {
             "1" -> {
-                print("⚖️ Peso mínimo en KG: ")
+                print("Peso mínimo en KG: ")
                 val pesoMin = readln().toDoubleOrNull() ?: 0.0
                 val filtrados = pokemonDetallados.filter { (it.weight / 10.0) >= pesoMin }
-                println("\n📦 RESULTADOS (Peso >= $pesoMin kg):")
+                println("\n RESULTADOS (Peso >= $pesoMin kg):")
                 filtrados.forEach { println("- ${it.name.uppercase()} (${it.weight / 10.0} kg)") }
             }
             "2" -> {
-                print("🔥 Tipo (ej: fire, water, ghost): ")
+                print("Tipo (ej: fire, water, ghost): ")
                 val tipo = readln().lowercase()
                 val filtrados = pokemonDetallados.filter { p -> p.types.any { it.type.name == tipo } }
-                println("\n🧬 RESULTADOS (Tipo: $tipo):")
+                println("\n RESULTADOS (Tipo: $tipo):")
                 filtrados.forEach { println("- ${it.name.uppercase()}") }
             }
             "3" -> {
@@ -94,10 +94,10 @@ fun main() {
                 }
 
                 if (filtrados.isEmpty()) {
-                    println("⚠️ No se encontraron Pokémon. Asegúrate de elegir entre 1 y 9.")
+                    println(" No se encontraron Pokémon. Asegúrate de elegir entre 1 y 9.")
                 } else {
                     val regiones = listOf("", "Kanto", "Johto", "Hoenn", "Sinnoh", "Unova", "Kalos", "Alola", "Galar", "Paldea")
-                    println("\n🗾 POKÉMON DE LA GENERACIÓN $gen (Región ${regiones[gen]}):")
+                    println("\n POKÉMON DE LA GENERACIÓN $gen (Región ${regiones[gen]}):")
                     println(filtrados.joinToString(", ") { "${it.id}:${it.name.uppercase()}" })
                     println("\nTotal: ${filtrados.size} encontrados.")
                 }
@@ -107,6 +107,6 @@ fun main() {
         }
 
     } else {
-        println("❌ Error de red: ${respuestaLista.statusCode()}")
+        println(" Error de red: ${respuestaLista.statusCode()}")
     }
 }
