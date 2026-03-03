@@ -33,7 +33,6 @@ fun main() {
     val cliente = HttpClient.newHttpClient()
     val jsonConfig = Json { ignoreUnknownKeys = true }
 
-    // Ponemos límite 500 para que entren las 4 primeras generaciones
     val urlLista = "https://pokeapi.co/api/v2/pokemon?limit=1025"
     val peticionLista = HttpRequest.newBuilder().uri(URI.create(urlLista)).GET().build()
 
